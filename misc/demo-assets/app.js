@@ -19,6 +19,12 @@ function MainCtrl($scope, $http, orderByFilter) {
     }
   };
 
+  //Tabs lazily insert code into the dom, so we have to color the javascript
+  //code lazily too.
+  $scope.onCodeTabSelected = function() {
+    Rainbow.color();
+  };
+
   $scope.downloadBuild = function() {
     var downloadUrl = url + "/api/bootstrap/download?";
     angular.forEach($scope.selectedModules, function(module) {
