@@ -66,11 +66,9 @@ function($parse, $http, $templateCache, $compile) {
       onSelect: '&select' //This callback is called in contentHeadingTransclude
                           //once it inserts the tab's content into the dom
     },
-    controller: ['$scope', function TabCtrl($scope) {
-      this.getHeadingElement = function() {
-        return $scope.headingElement;
-      };
-    }],
+    controller: function() {
+      //Empty controller so other directives can require being 'under' a tab
+    },
     compile: function(elm, attrs, transclude) {
       return function postLink(scope, elm, attrs, tabsetCtrl) {
         var getActive, setActive;
@@ -148,9 +146,7 @@ function($parse, $http, $templateCache, $compile) {
     restrict: 'A',
     require: '^tab', 
     link: function(scope, elm, attrs, tabCtrl) {
-      scope.$watch(function getHeadingElement() {
-        return tabCtrl.getHeadingElement();
-      }, function updateHeadingElement(heading) {
+      scope.$watch('headingElement', function updateHeadingElement(heading) {
         if (heading) {
           elm.html('');
           elm.append(heading);
